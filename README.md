@@ -1,6 +1,4 @@
-# Autonomous_Systems_B_Lab_Group_A
-
-Autonomous Systems B - Group A
+# Autonomous Systems B Lab - Group A
 
 # Members:
 - Caio Flores (Leader)
