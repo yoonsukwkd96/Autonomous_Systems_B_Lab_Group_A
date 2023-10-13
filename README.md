@@ -2,10 +2,8 @@
 
 Autonomous Systems B - Group A
 
-Younsuk Choi
-
-Caio Flores (Leader)
-
-Ukamaka Akumili Anaedu
-
-Pritish Sanjay Samant
+# Members:
+- Caio Flores (Leader)
+- Younsuk Choi
+- Ukamaka Akumili Anaedu
+- Pritish Sanjay Samant
