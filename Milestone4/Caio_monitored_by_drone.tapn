@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <net active="true" id="TAPN1" type="P/T net">
+    <place displayName="true" id="start_s0" initialMarking="1" invariant="&lt; inf" name="start_s0" nameOffsetX="-5" nameOffsetY="35" positionX="312" positionY="631"/>
+    <place displayName="true" id="operation" initialMarking="0" invariant="&lt; inf" name="operation" nameOffsetX="86" nameOffsetY="16" positionX="619" positionY="631"/>
+    <place displayName="true" id="problem_solving" initialMarking="0" invariant="&lt; inf" name="problem_solving" nameOffsetX="112" nameOffsetY="-2" positionX="451" positionY="466"/>
+    <place displayName="true" id="programming_land" initialMarking="0" invariant="&lt; inf" name="programming_land" nameOffsetX="46" nameOffsetY="-5" positionX="447" positionY="286"/>
+    <transition angle="0" displayName="true" id="start_operation" infiniteServer="false" name="start_operation" nameOffsetX="49" nameOffsetY="-7" player="0" positionX="465" positionY="630" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="problem" infiniteServer="false" name="problem" nameOffsetX="70" nameOffsetY="-4" player="0" positionX="540" positionY="532" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="return" infiniteServer="false" name="return" nameOffsetX="8" nameOffsetY="15" player="0" positionX="367" positionY="532" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="land_now" infiniteServer="false" name="land_now" nameOffsetX="87" nameOffsetY="18" player="0" positionX="450" positionY="367" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="problem_solved" infiniteServer="false" name="problem_solved" nameOffsetX="-5" nameOffsetY="17" player="0" positionX="310" positionY="367" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="no_battery" infiniteServer="false" name="no_battery" nameOffsetX="48" nameOffsetY="42" player="0" positionX="467" positionY="691" priority="0" urgent="false"/>
+    <arc id="Charging_Area to go_working" inscription="[60,inf)" nameOffsetX="9" nameOffsetY="-3" source="start_s0" target="start_operation" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="341" yCoord="645"/>
+      <arcpath arcPointType="false" id="1" xCoord="474" yCoord="645"/>
+    </arc>
+    <arc id="go_working to Working" inscription="1" nameOffsetX="0" nameOffsetY="0" source="start_operation" target="operation" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="484" yCoord="645"/>
+      <arcpath arcPointType="false" id="1" xCoord="619" yCoord="645"/>
+    </arc>
+    <arc id="Working to emergency" inscription="[0,inf):1" nameOffsetX="0" nameOffsetY="0" source="operation" target="problem" type="transport" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="624" yCoord="634"/>
+      <arcpath arcPointType="false" id="1" xCoord="559" yCoord="547"/>
+    </arc>
+    <arc id="emergency to Emergency_Handling" inscription="[0,inf):1" nameOffsetX="12" nameOffsetY="0" source="problem" target="problem_solving" type="transport" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="549" yCoord="547"/>
+      <arcpath arcPointType="false" id="1" xCoord="477" yCoord="490"/>
+    </arc>
+    <arc id="Emergency_Handling to land_immediately" inscription="[0,inf):1" nameOffsetX="0" nameOffsetY="0" source="problem_solving" target="land_now" type="transport" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="465" yCoord="466"/>
+      <arcpath arcPointType="false" id="1" xCoord="464" yCoord="386"/>
+    </arc>
+    <arc id="land_immediately to Emergency_Landing" inscription="[0,inf):1" nameOffsetX="0" nameOffsetY="0" source="land_now" target="programming_land" type="transport" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="464" yCoord="376"/>
+      <arcpath arcPointType="false" id="1" xCoord="462" yCoord="315"/>
+    </arc>
+    <arc id="Working to battery_empty" inscription="[12,15]" nameOffsetX="0" nameOffsetY="0" source="operation" target="no_battery" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="620" yCoord="651"/>
+      <arcpath arcPointType="false" id="1" xCoord="486" yCoord="706"/>
+    </arc>
+    <arc id="battery_empty to Charging_Area" inscription="1" nameOffsetX="0" nameOffsetY="0" source="no_battery" target="start_s0" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="476" yCoord="706"/>
+      <arcpath arcPointType="false" id="1" xCoord="340" yCoord="651"/>
+    </arc>
+    <arc id="Emergency_Landing to problem_solved" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="programming_land" target="problem_solved" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="448" yCoord="308"/>
+      <arcpath arcPointType="false" id="1" xCoord="324" yCoord="376"/>
+    </arc>
+    <arc id="problem_solved to Charging_Area" inscription="1" nameOffsetX="0" nameOffsetY="0" source="problem_solved" target="start_s0" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="324" yCoord="386"/>
+      <arcpath arcPointType="false" id="1" xCoord="326" yCoord="631"/>
+    </arc>
+    <arc id="Emergency_Handling to return" inscription="[0,15]" nameOffsetX="0" nameOffsetY="0" source="problem_solving" target="return" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="454" yCoord="490"/>
+      <arcpath arcPointType="false" id="1" xCoord="386" yCoord="547"/>
+    </arc>
+    <arc id="return to Charging_Area" inscription="1" nameOffsetX="0" nameOffsetY="0" source="return" target="start_s0" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="382" yCoord="562"/>
+      <arcpath arcPointType="false" id="1" xCoord="335" yCoord="633"/>
+    </arc>
+  </net>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="2" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Query Comment/Deadlock" overApproximation="false" pTrie="true" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="HEURISTIC" symmetry="true" timeDarts="false" traceOption="NONE" type="Default" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="false">
+    <formula>
+      <all-paths>
+        <globally>
+          <negation>
+            <deadlock/>
+          </negation>
+        </globally>
+      </all-paths>
+    </formula>
+  </query>
+  <k-bound bound="3"/>
+  <feature isGame="false" isTimed="true"/>
+</pnml>
