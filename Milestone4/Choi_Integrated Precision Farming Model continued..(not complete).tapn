@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4CP"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4CP"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Started_ControlPanel"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Login_ControlPanel"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="LoginSuccessful_Server"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="LoginTimeOut_Server"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="LoginFailed_Server"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4D"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4D"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Started_Drones"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Initialization_Drones"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Initialization_CP"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Initialization_AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Request"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Request_Succeeded"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Request_TimedOut"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4D"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="SentGISInfos4AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="SentGISInfos4D"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Started_AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="InitComplete4AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="InitComplete4Drones"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ReportedRS_Drones"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="ReportedRS_AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="DroneReady2Function"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="AVReady2Function"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Command"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Idle_AV"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="Idle_Drones"/>
+  <shared-transition name="T34" player="0" urgent="false"/>
+  <shared-transition name="wakeUPDrones" player="1" urgent="true"/>
+  <shared-transition name="wakeUPAV" player="1" urgent="true"/>
+  <shared-transition name="checkReadyState" player="0" urgent="true"/>
+  <shared-transition name="Ready2Function" player="0" urgent="false"/>
+  <shared-transition name="chooseCommand" player="0" urgent="true"/>
+  <shared-transition name="T11" player="0" urgent="false"/>
+  <constant name="Deadline" value="10"/>
+  <constant name="LoginAttempt" value="3"/>
+  <net active="true" id="AutonomousVehicles" type="P/T net">
+    <place displayName="true" id="Idle_AV" initialMarking="0" invariant="&lt; inf" name="Idle_AV" nameOffsetX="0" nameOffsetY="0" positionX="188" positionY="75"/>
+    <place displayName="true" id="WaitingForConnection_AV" initialMarking="0" invariant="&lt; inf" name="WaitingForConnection_AV" nameOffsetX="62" nameOffsetY="-7" positionX="390" positionY="75"/>
+    <place displayName="true" id="Connected_AVs" initialMarking="0" invariant="&lt; inf" name="Connected_AVs" nameOffsetX="0" nameOffsetY="0" positionX="608" positionY="75"/>
+    <place displayName="true" id="Initialization_AV" initialMarking="0" invariant="&lt; inf" name="Initialization_AV" nameOffsetX="0" nameOffsetY="0" positionX="900" positionY="75"/>
+    <place displayName="true" id="TimeOutd_AV" initialMarking="0" invariant="&lt; inf" name="TimeOutd_AV" nameOffsetX="0" nameOffsetY="0" positionX="390" positionY="390"/>
+    <place displayName="true" id="Started_AV" initialMarking="0" invariant="&lt; inf" name="Started_AV" nameOffsetX="0" nameOffsetY="0" positionX="278" positionY="180"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4AV" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4AV" nameOffsetX="0" nameOffsetY="0" positionX="503" positionY="187"/>
+    <place displayName="true" id="InitComplete4AV" initialMarking="0" invariant="&lt; inf" name="InitComplete4AV" nameOffsetX="0" nameOffsetY="0" positionX="757" positionY="166"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4AV" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4AV" nameOffsetX="0" nameOffsetY="0" positionX="503" positionY="262"/>
+    <place displayName="true" id="Wait4Initializing_AV" initialMarking="0" invariant="&lt; inf" name="Wait4Initializing_AV" nameOffsetX="0" nameOffsetY="0" positionX="1017" positionY="173"/>
+    <place displayName="true" id="ReadyState_AV" initialMarking="0" invariant="&lt; inf" name="ReadyState_AV" nameOffsetX="0" nameOffsetY="0" positionX="885" positionY="277"/>
+    <place displayName="true" id="ReportedRS_AV" initialMarking="0" invariant="&lt; inf" name="ReportedRS_AV" nameOffsetX="0" nameOffsetY="0" positionX="653" positionY="337"/>
+    <transition angle="0" displayName="true" id="Start_AV" infiniteServer="false" name="Start_AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="278" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="connectAVs" infiniteServer="false" name="connectAVs" nameOffsetX="0" nameOffsetY="0" player="0" positionX="503" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Initialize_AVs" infiniteServer="false" name="Initialize_AVs" nameOffsetX="0" nameOffsetY="0" player="0" positionX="758" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="TurnOff_AV" infiniteServer="false" name="TurnOff_AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="195" positionY="360" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="TimeOut_ConnectivityAV" infiniteServer="false" name="TimeOut_ConnectivityAV" nameOffsetX="14" nameOffsetY="22" player="0" positionX="390" positionY="216" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="initializingAVs" infiniteServer="false" name="initializingAVs" nameOffsetX="45" nameOffsetY="-8" player="0" positionX="1020" positionY="82" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="initMessageReceivedAV" infiniteServer="false" name="initMessageReceivedAV" nameOffsetX="80" nameOffsetY="53" player="0" positionX="885" positionY="187" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="reportRS_AV" infiniteServer="false" name="reportRS_AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="765" positionY="300" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Idle_AV" target="Start_AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="217" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="288" yCoord="85"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_AV" target="WaitingForConnection_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="297" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="390" yCoord="90"/>
+    </arc>
+    <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_AV" target="connectAVs" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="419" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="513" yCoord="85"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="connectAVs" target="Connected_AVs" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="522" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="608" yCoord="90"/>
+    </arc>
+    <arc id="A4" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Connected_AVs" target="Initialize_AVs" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="637" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="768" yCoord="85"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Initialize_AVs" target="Initialization_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="777" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="900" yCoord="90"/>
+    </arc>
+    <arc id="A8" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TurnOff_AV" target="Idle_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="210" yCoord="360"/>
+      <arcpath arcPointType="false" id="1" xCoord="203" yCoord="104"/>
+    </arc>
+    <arc id="A9" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_AV" target="Started_AV" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="293" yCoord="105"/>
+      <arcpath arcPointType="false" id="1" xCoord="293" yCoord="180"/>
+    </arc>
+    <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_AV" target="TimeOut_ConnectivityAV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="405" yCoord="105"/>
+      <arcpath arcPointType="false" id="1" xCoord="405" yCoord="216"/>
+    </arc>
+    <arc id="A11" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TimeOut_ConnectivityAV" target="TimeOutd_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="405" yCoord="246"/>
+      <arcpath arcPointType="false" id="1" xCoord="405" yCoord="390"/>
+    </arc>
+    <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TimeOutd_AV" target="TurnOff_AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="390" yCoord="402"/>
+      <arcpath arcPointType="false" id="1" xCoord="215" yCoord="370"/>
+    </arc>
+    <arc id="A13" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityTimeOut_Server4AV" target="TimeOut_ConnectivityAV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="504" yCoord="270"/>
+      <arcpath arcPointType="false" id="1" xCoord="410" yCoord="226"/>
+    </arc>
+    <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityConfirmed_Server4AV" target="connectAVs" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="518" yCoord="187"/>
+      <arcpath arcPointType="false" id="1" xCoord="518" yCoord="105"/>
+    </arc>
+    <arc id="A15" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_AV" target="initializingAVs" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="929" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="1030" yCoord="92"/>
+    </arc>
+    <arc id="A16" inscription="1" nameOffsetX="0" nameOffsetY="0" source="initializingAVs" target="Wait4Initializing_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1035" yCoord="112"/>
+      <arcpath arcPointType="false" id="1" xCoord="1032" yCoord="173"/>
+    </arc>
+    <arc id="A17" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Wait4Initializing_AV" target="initMessageReceivedAV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1017" yCoord="189"/>
+      <arcpath arcPointType="false" id="1" xCoord="905" yCoord="197"/>
+    </arc>
+    <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="InitComplete4AV" target="initMessageReceivedAV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="786" yCoord="182"/>
+      <arcpath arcPointType="false" id="1" xCoord="895" yCoord="197"/>
+    </arc>
+    <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="initMessageReceivedAV" target="ReadyState_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="900" yCoord="217"/>
+      <arcpath arcPointType="false" id="1" xCoord="900" yCoord="277"/>
+    </arc>
+    <arc id="A20" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReadyState_AV" target="reportRS_AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="885" yCoord="295"/>
+      <arcpath arcPointType="false" id="1" xCoord="784" yCoord="320"/>
+    </arc>
+    <arc id="A21" inscription="1" nameOffsetX="0" nameOffsetY="0" source="reportRS_AV" target="ReportedRS_AV" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="774" yCoord="315"/>
+      <arcpath arcPointType="false" id="1" xCoord="682" yCoord="347"/>
+    </arc>
+  </net>
+  <net active="true" id="Cloud" type="P/T net">
+    <place displayName="true" id="RequestedGISInfos4D" initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4D" nameOffsetX="0" nameOffsetY="0" positionX="131" positionY="59"/>
+    <place displayName="true" id="RequestedGISInfos4AV" initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4AV" nameOffsetX="0" nameOffsetY="0" positionX="131" positionY="150"/>
+    <place displayName="true" id="P2" initialMarking="0" invariant="&lt; inf" name="P2" nameOffsetX="0" nameOffsetY="0" positionX="138" positionY="275"/>
+    <place displayName="true" id="SentGISInfos4D" initialMarking="0" invariant="&lt; inf" name="SentGISInfos4D" nameOffsetX="53" nameOffsetY="-6" positionX="360" positionY="52"/>
+    <place displayName="true" id="SentGISInfos4AV" initialMarking="0" invariant="&lt; inf" name="SentGISInfos4AV" nameOffsetX="54" nameOffsetY="-9" positionX="360" positionY="150"/>
+    <place displayName="true" id="P13" initialMarking="0" invariant="&lt; inf" name="P13" nameOffsetX="0" nameOffsetY="0" positionX="135" positionY="352"/>
+    <transition angle="0" displayName="true" id="sendGISInfos4D" infiniteServer="false" name="sendGISInfos4D" nameOffsetX="52" nameOffsetY="-4" player="0" positionX="240" positionY="38" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="sendGISInfos4AV" infiniteServer="false" name="sendGISInfos4AV" nameOffsetX="58" nameOffsetY="-4" player="0" positionX="240" positionY="150" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="RequestedGISInfos4D" target="sendGISInfos4D" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="160" yCoord="71"/>
+      <arcpath arcPointType="false" id="1" xCoord="249" yCoord="58"/>
+    </arc>
+    <arc id="A1" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="RequestedGISInfos4AV" target="sendGISInfos4AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="160" yCoord="164"/>
+      <arcpath arcPointType="false" id="1" xCoord="250" yCoord="160"/>
+    </arc>
+    <arc id="A2" inscription="1" nameOffsetX="0" nameOffsetY="0" source="sendGISInfos4D" target="SentGISInfos4D" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="259" yCoord="53"/>
+      <arcpath arcPointType="false" id="1" xCoord="360" yCoord="65"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="sendGISInfos4AV" target="SentGISInfos4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="259" yCoord="165"/>
+      <arcpath arcPointType="false" id="1" xCoord="360" yCoord="165"/>
+    </arc>
+  </net>
+  <net active="true" id="Drones" type="P/T net">
+    <place displayName="true" id="Idle_Drones" initialMarking="0" invariant="&lt; inf" name="Idle_Drones" nameOffsetX="0" nameOffsetY="0" positionX="179" positionY="73"/>
+    <place displayName="true" id="Started_Drones" initialMarking="0" invariant="&lt; inf" name="Started_Drones" nameOffsetX="54" nameOffsetY="-7" positionX="260" positionY="165"/>
+    <place displayName="true" id="WaitingForConnection_Drones" initialMarking="0" invariant="&lt; inf" name="WaitingForConnection_Drones" nameOffsetX="105" nameOffsetY="-14" positionX="377" positionY="75"/>
+    <place displayName="true" id="TimeOutd_Drones" initialMarking="0" invariant="&lt; inf" name="TimeOutd_Drones" nameOffsetX="0" nameOffsetY="0" positionX="379" positionY="351"/>
+    <place displayName="true" id="Connected_Drones" initialMarking="0" invariant="&lt; inf" name="Connected_Drones" nameOffsetX="60" nameOffsetY="-6" positionX="692" positionY="75"/>
+    <place displayName="true" id="Initialization_Drones" initialMarking="0" invariant="&lt; inf" name="Initialization_Drones" nameOffsetX="0" nameOffsetY="0" positionX="984" positionY="75"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4D" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4D" nameOffsetX="102" nameOffsetY="44" positionX="551" positionY="162"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4D" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4D" nameOffsetX="99" nameOffsetY="-18" positionX="551" positionY="245"/>
+    <place displayName="true" id="Wait4Initializing_Drones" initialMarking="0" invariant="&lt; inf" name="Wait4Initializing_Drones" nameOffsetX="0" nameOffsetY="0" positionX="1067" positionY="166"/>
+    <place displayName="true" id="InitComplete4Drones" initialMarking="0" invariant="&lt; inf" name="InitComplete4Drones" nameOffsetX="0" nameOffsetY="0" positionX="859" positionY="165"/>
+    <place displayName="true" id="ReadyState_Drones" initialMarking="0" invariant="&lt; inf" name="ReadyState_Drones" nameOffsetX="0" nameOffsetY="0" positionX="964" positionY="270"/>
+    <place displayName="true" id="ReportedRS_Drones" initialMarking="0" invariant="&lt; inf" name="ReportedRS_Drones" nameOffsetX="0" nameOffsetY="0" positionX="724" positionY="345"/>
+    <transition angle="0" displayName="true" id="Start_Drones" infiniteServer="false" name="Start_Drones" nameOffsetX="52" nameOffsetY="-12" player="0" positionX="261" positionY="73" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="TimeOut_ConnectivityDrones" infiniteServer="false" name="TimeOut_ConnectivityDrones" nameOffsetX="0" nameOffsetY="0" player="0" positionX="379" positionY="238" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="connect_Drones" infiniteServer="false" name="connect_Drones" nameOffsetX="62" nameOffsetY="-6" player="0" positionX="551" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="TurnOff_Drones" infiniteServer="false" name="TurnOff_Drones" nameOffsetX="15" nameOffsetY="-9" player="0" positionX="176" positionY="351" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Initialize_Drones" infiniteServer="false" name="Initialize_Drones" nameOffsetX="45" nameOffsetY="-7" player="0" positionX="857" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="initializingDrones" infiniteServer="false" name="initializingDrones" nameOffsetX="43" nameOffsetY="-12" player="0" positionX="1069" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="initMessageReceivedDrones" infiniteServer="false" name="initMessageReceivedDrones" nameOffsetX="69" nameOffsetY="50" player="0" positionX="964" positionY="187" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="reportRS_Drones" infiniteServer="false" name="reportRS_Drones" nameOffsetX="0" nameOffsetY="0" player="0" positionX="836" positionY="300" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Idle_Drones" target="Start_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="208" yCoord="87"/>
+      <arcpath arcPointType="false" id="1" xCoord="271" yCoord="83"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_Drones" target="Started_Drones" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="276" yCoord="103"/>
+      <arcpath arcPointType="false" id="1" xCoord="275" yCoord="165"/>
+    </arc>
+    <arc id="A2" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_Drones" target="WaitingForConnection_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="280" yCoord="88"/>
+      <arcpath arcPointType="false" id="1" xCoord="377" yCoord="89"/>
+    </arc>
+    <arc id="A3" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_Drones" target="TimeOut_ConnectivityDrones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="392" yCoord="104"/>
+      <arcpath arcPointType="false" id="1" xCoord="394" yCoord="238"/>
+    </arc>
+    <arc id="A4" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TimeOut_ConnectivityDrones" target="TimeOutd_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="394" yCoord="268"/>
+      <arcpath arcPointType="false" id="1" xCoord="394" yCoord="351"/>
+    </arc>
+    <arc id="A5" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TimeOutd_Drones" target="TurnOff_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="379" yCoord="365"/>
+      <arcpath arcPointType="false" id="1" xCoord="196" yCoord="361"/>
+    </arc>
+    <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TurnOff_Drones" target="Idle_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="351"/>
+      <arcpath arcPointType="false" id="1" xCoord="193" yCoord="102"/>
+    </arc>
+    <arc id="A7" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_Drones" target="connect_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="406" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="561" yCoord="85"/>
+    </arc>
+    <arc id="A8" inscription="1" nameOffsetX="0" nameOffsetY="0" source="connect_Drones" target="Connected_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="570" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="692" yCoord="90"/>
+    </arc>
+    <arc id="A9" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Connected_Drones" target="Initialize_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="721" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="867" yCoord="85"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Initialize_Drones" target="Initialization_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="876" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="984" yCoord="90"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityTimeOut_Server4D" target="TimeOut_ConnectivityDrones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="551" yCoord="259"/>
+      <arcpath arcPointType="false" id="1" xCoord="398" yCoord="258"/>
+    </arc>
+    <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityConfirmed_Server4D" target="connect_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="566" yCoord="162"/>
+      <arcpath arcPointType="false" id="1" xCoord="566" yCoord="105"/>
+    </arc>
+    <arc id="A13" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_Drones" target="initializingDrones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1013" yCoord="89"/>
+      <arcpath arcPointType="false" id="1" xCoord="1079" yCoord="85"/>
+    </arc>
+    <arc id="A14" inscription="1" nameOffsetX="0" nameOffsetY="0" source="initializingDrones" target="Wait4Initializing_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1084" yCoord="105"/>
+      <arcpath arcPointType="false" id="1" xCoord="1082" yCoord="166"/>
+    </arc>
+    <arc id="A15" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="InitComplete4Drones" target="initMessageReceivedDrones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="888" yCoord="182"/>
+      <arcpath arcPointType="false" id="1" xCoord="974" yCoord="197"/>
+    </arc>
+    <arc id="A16" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Wait4Initializing_Drones" target="initMessageReceivedDrones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1067" yCoord="183"/>
+      <arcpath arcPointType="false" id="1" xCoord="984" yCoord="197"/>
+    </arc>
+    <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="initMessageReceivedDrones" target="ReadyState_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="979" yCoord="217"/>
+      <arcpath arcPointType="false" id="1" xCoord="979" yCoord="270"/>
+    </arc>
+    <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReadyState_Drones" target="reportRS_Drones" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="964" yCoord="287"/>
+      <arcpath arcPointType="false" id="1" xCoord="856" yCoord="310"/>
+    </arc>
+    <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="reportRS_Drones" target="ReportedRS_Drones" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="845" yCoord="315"/>
+      <arcpath arcPointType="false" id="1" xCoord="752" yCoord="354"/>
+    </arc>
+  </net>
+  <net active="true" id="Farmer_ControlPanel" type="P/T net">
+    <place displayName="true" id="Idle_ControlPanel" initialMarking="1" invariant="&lt; inf" name="Idle_ControlPanel" nameOffsetX="71" nameOffsetY="-12" positionX="30" positionY="105"/>
+    <place displayName="true" id="Started_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Started_ControlPanel" nameOffsetX="75" nameOffsetY="-12" positionX="135" positionY="210"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4CP" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4CP" nameOffsetX="106" nameOffsetY="40" positionX="357" positionY="194"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4CP" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4CP" nameOffsetX="91" nameOffsetY="58" positionX="340" positionY="300"/>
+    <place displayName="true" id="Login_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Login_ControlPanel" nameOffsetX="63" nameOffsetY="45" positionX="529" positionY="197"/>
+    <place displayName="true" id="TimeOutd_ControlPanel" initialMarking="0" invariant="&lt; inf" name="TimeOutd_ControlPanel" nameOffsetX="65" nameOffsetY="47" positionX="249" positionY="588"/>
+    <place displayName="true" id="WaitingForConnection_ControlPanel" initialMarking="0" invariant="&lt; inf" name="WaitingForConnection_ControlPanel" nameOffsetX="102" nameOffsetY="-12" positionX="255" positionY="105"/>
+    <place displayName="true" id="WaitingForLogin" initialMarking="0" invariant="&lt; inf" name="WaitingForLogin" nameOffsetX="66" nameOffsetY="-10" positionX="675" positionY="105"/>
+    <place displayName="true" id="LoginSuccessful_Server" initialMarking="0" invariant="&lt; inf" name="LoginSuccessful_Server" nameOffsetX="0" nameOffsetY="0" positionX="810" positionY="195"/>
+    <place displayName="true" id="Authorized_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Authorized_ControlPanel" nameOffsetX="80" nameOffsetY="-14" positionX="945" positionY="105"/>
+    <place displayName="true" id="LoginTimeOut_Server" initialMarking="0" invariant="&lt; inf" name="LoginTimeOut_Server" nameOffsetX="0" nameOffsetY="0" positionX="810" positionY="495"/>
+    <place displayName="true" id="Connected_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Connected_ControlPanel" nameOffsetX="62" nameOffsetY="-7" positionX="450" positionY="105"/>
+    <place displayName="true" id="LoginFailed_Server" initialMarking="0" invariant="&lt; inf" name="LoginFailed_Server" nameOffsetX="0" nameOffsetY="0" positionX="810" positionY="390"/>
+    <place displayName="true" id="ReadyState_ControlPanel" initialMarking="0" invariant="&lt; inf" name="ReadyState_ControlPanel" nameOffsetX="75" nameOffsetY="-6" positionX="1155" positionY="112"/>
+    <place displayName="true" id="CPReady2Function" initialMarking="0" invariant="&lt; inf" name="CPReady2Function" nameOffsetX="0" nameOffsetY="0" positionX="1253" positionY="333"/>
+    <place displayName="true" id="AVReady2Function" initialMarking="0" invariant="&lt; inf" name="AVReady2Function" nameOffsetX="57" nameOffsetY="-20" positionX="1342" positionY="330"/>
+    <place displayName="true" id="DroneReady2Function" initialMarking="0" invariant="&lt; inf" name="DroneReady2Function" nameOffsetX="71" nameOffsetY="-10" positionX="1425" positionY="330"/>
+    <place displayName="true" id="Command" initialMarking="0" invariant="&lt; inf" name="Command" nameOffsetX="0" nameOffsetY="0" positionX="1342" positionY="494"/>
+    <transition angle="0" displayName="true" id="Start_ControlPanel" infiniteServer="false" name="Start_ControlPanel" nameOffsetX="60" nameOffsetY="-43" player="0" positionX="135" positionY="105" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="TurnOff_ControlPanel" infiniteServer="false" name="TurnOff_ControlPanel" nameOffsetX="93" nameOffsetY="40" player="0" positionX="30" positionY="585" priority="0" urgent="true"/>
+    <transition angle="90" displayName="true" id="connect_ControlPanel" infiniteServer="false" name="connect_ControlPanel" nameOffsetX="0" nameOffsetY="0" player="0" positionX="352" positionY="104" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="TimeOut_ConnectivityCP" infiniteServer="false" name="TimeOut_ConnectivityCP" nameOffsetX="79" nameOffsetY="-10" player="0" positionX="255" positionY="490" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Authorize" infiniteServer="false" name="Authorize" nameOffsetX="0" nameOffsetY="0" player="0" positionX="810" positionY="105" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="TimeOut_Login" infiniteServer="false" name="TimeOut_Login" nameOffsetX="98" nameOffsetY="56" player="0" positionX="540" positionY="495" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="SubmitLoginInfos_ControlPanel" infiniteServer="false" name="SubmitLoginInfos_ControlPanel" nameOffsetX="117" nameOffsetY="-45" player="0" positionX="525" positionY="105" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T31" infiniteServer="false" name="T31" nameOffsetX="0" nameOffsetY="0" player="0" positionX="420" positionY="540" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T37" infiniteServer="false" name="T37" nameOffsetX="0" nameOffsetY="0" player="0" positionX="1050" positionY="111" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="TimeOut_RS_CP" infiniteServer="false" name="TimeOut_RS_CP" nameOffsetX="0" nameOffsetY="0" player="0" positionX="1102" positionY="232" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="checkReadyState" infiniteServer="false" name="checkReadyState" nameOffsetX="0" nameOffsetY="0" player="0" positionX="1250" positionY="220" priority="0" urgent="true"/>
+    <transition angle="90" displayName="true" id="chooseFunction" infiniteServer="false" name="chooseFunction" nameOffsetX="-10" nameOffsetY="19" player="0" positionX="1343" positionY="420" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Idle_ControlPanel" target="Start_ControlPanel" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="60" yCoord="120"/>
+      <arcpath arcPointType="false" id="1" xCoord="144" yCoord="120"/>
+    </arc>
+    <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_ControlPanel" target="Started_ControlPanel" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="150" yCoord="135"/>
+      <arcpath arcPointType="false" id="1" xCoord="150" yCoord="210"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TurnOff_ControlPanel" target="Idle_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="44" yCoord="594"/>
+      <arcpath arcPointType="false" id="1" xCoord="44" yCoord="134"/>
+    </arc>
+    <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityConfirmed_Server4CP" target="connect_ControlPanel" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="371" yCoord="194"/>
+      <arcpath arcPointType="false" id="1" xCoord="366" yCoord="123"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ConnectivityTimeOut_Server4CP" target="TimeOut_ConnectivityCP" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="355" yCoord="329"/>
+      <arcpath arcPointType="false" id="1" xCoord="360" yCoord="505"/>
+      <arcpath arcPointType="false" id="2" xCoord="284" yCoord="505"/>
+    </arc>
+    <arc id="A14" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TimeOut_ConnectivityCP" target="TimeOutd_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="269" yCoord="509"/>
+      <arcpath arcPointType="false" id="1" xCoord="264" yCoord="588"/>
+    </arc>
+    <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TimeOutd_ControlPanel" target="TurnOff_ControlPanel" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="249" yCoord="601"/>
+      <arcpath arcPointType="false" id="1" xCoord="59" yCoord="600"/>
+    </arc>
+    <arc id="A15" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Start_ControlPanel" target="WaitingForConnection_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="154" yCoord="120"/>
+      <arcpath arcPointType="false" id="1" xCoord="255" yCoord="120"/>
+    </arc>
+    <arc id="A13" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_ControlPanel" target="connect_ControlPanel" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="284" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="351" yCoord="119"/>
+    </arc>
+    <arc id="A16" inscription="[Deadline,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForConnection_ControlPanel" target="TimeOut_ConnectivityCP" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="269" yCoord="134"/>
+      <arcpath arcPointType="false" id="1" xCoord="264" yCoord="499"/>
+    </arc>
+    <arc id="A18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForLogin" target="Authorize" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="704" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="820" yCoord="115"/>
+    </arc>
+    <arc id="A19" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="LoginSuccessful_Server" target="Authorize" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="825" yCoord="195"/>
+      <arcpath arcPointType="false" id="1" xCoord="825" yCoord="135"/>
+    </arc>
+    <arc id="A20" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Authorize" target="Authorized_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="829" yCoord="125"/>
+      <arcpath arcPointType="false" id="1" xCoord="945" yCoord="120"/>
+    </arc>
+    <arc id="A22" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="LoginTimeOut_Server" target="TimeOut_Login" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="810" yCoord="510"/>
+      <arcpath arcPointType="false" id="1" xCoord="569" yCoord="510"/>
+    </arc>
+    <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TimeOut_Login" target="TimeOutd_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="554" yCoord="514"/>
+      <arcpath arcPointType="false" id="1" xCoord="555" yCoord="598"/>
+      <arcpath arcPointType="false" id="2" xCoord="278" yCoord="601"/>
+    </arc>
+    <arc id="A21" inscription="1" nameOffsetX="0" nameOffsetY="0" source="connect_ControlPanel" target="Connected_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="381" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="450" yCoord="119"/>
+    </arc>
+    <arc id="A26" inscription="[0,inf)" nameOffsetX="15" nameOffsetY="32" source="Connected_ControlPanel" target="SubmitLoginInfos_ControlPanel" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="479" yCoord="119"/>
+      <arcpath arcPointType="false" id="1" xCoord="535" yCoord="115"/>
+    </arc>
+    <arc id="A22" inscription="1" nameOffsetX="0" nameOffsetY="0" source="SubmitLoginInfos_ControlPanel" target="WaitingForLogin" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="545" yCoord="109"/>
+      <arcpath arcPointType="false" id="1" xCoord="675" yCoord="119"/>
+    </arc>
+    <arc id="A27" inscription="1" nameOffsetX="0" nameOffsetY="0" source="SubmitLoginInfos_ControlPanel" target="Login_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="540" yCoord="135"/>
+      <arcpath arcPointType="false" id="1" xCoord="543" yCoord="198"/>
+    </arc>
+    <arc id="A23" inscription="[Deadline,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForLogin" target="TimeOut_Login" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="689" yCoord="134"/>
+      <arcpath arcPointType="false" id="1" xCoord="686" yCoord="334"/>
+      <arcpath arcPointType="false" id="2" xCoord="558" yCoord="337"/>
+      <arcpath arcPointType="false" id="3" xCoord="556" yCoord="505"/>
+    </arc>
+    <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T31" target="TimeOutd_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="429" yCoord="555"/>
+      <arcpath arcPointType="false" id="1" xCoord="278" yCoord="598"/>
+    </arc>
+    <arc id="A29" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Authorized_ControlPanel" target="T37" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="974" yCoord="120"/>
+      <arcpath arcPointType="false" id="1" xCoord="1060" yCoord="121"/>
+    </arc>
+    <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="LoginFailed_Server" target="T31" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="810" yCoord="405"/>
+      <arcpath arcPointType="false" id="1" xCoord="436" yCoord="406"/>
+      <arcpath arcPointType="false" id="2" xCoord="435" yCoord="540"/>
+    </arc>
+    <arc id="A25" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="WaitingForLogin" target="T31" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="683" yCoord="133"/>
+      <arcpath arcPointType="false" id="1" xCoord="439" yCoord="560"/>
+    </arc>
+    <arc id="A28" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T37" target="ReadyState_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1069" yCoord="126"/>
+      <arcpath arcPointType="false" id="1" xCoord="1155" yCoord="126"/>
+    </arc>
+    <arc id="A26" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReadyState_ControlPanel" target="TimeOut_RS_CP" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1163" yCoord="140"/>
+      <arcpath arcPointType="false" id="1" xCoord="1118" yCoord="233"/>
+    </arc>
+    <arc id="A29" inscription="1" nameOffsetX="0" nameOffsetY="0" source="TimeOut_RS_CP" target="TimeOutd_ControlPanel" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1118" yCoord="263"/>
+      <arcpath arcPointType="false" id="1" xCoord="1124" yCoord="649"/>
+      <arcpath arcPointType="false" id="2" xCoord="258" yCoord="648"/>
+      <arcpath arcPointType="false" id="3" xCoord="261" yCoord="616"/>
+    </arc>
+    <arc id="A30" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReadyState_ControlPanel" target="checkReadyState" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1179" yCoord="139"/>
+      <arcpath arcPointType="false" id="1" xCoord="1259" yCoord="235"/>
+    </arc>
+    <arc id="A31" inscription="1" nameOffsetX="0" nameOffsetY="0" source="checkReadyState" target="CPReady2Function" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1265" yCoord="250"/>
+      <arcpath arcPointType="false" id="1" xCoord="1266" yCoord="333"/>
+    </arc>
+    <arc id="A32" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPReady2Function" target="chooseFunction" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1278" yCoord="358"/>
+      <arcpath arcPointType="false" id="1" xCoord="1349" yCoord="429"/>
+    </arc>
+    <arc id="A33" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="AVReady2Function" target="chooseFunction" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1358" yCoord="360"/>
+      <arcpath arcPointType="false" id="1" xCoord="1358" yCoord="430"/>
+    </arc>
+    <arc id="A34" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DroneReady2Function" target="chooseFunction" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1429" yCoord="355"/>
+      <arcpath arcPointType="false" id="1" xCoord="1361" yCoord="430"/>
+    </arc>
+    <arc id="A35" inscription="1" nameOffsetX="0" nameOffsetY="0" source="chooseFunction" target="Command" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1356" yCoord="439"/>
+      <arcpath arcPointType="false" id="1" xCoord="1356" yCoord="494"/>
+    </arc>
+  </net>
+  <net active="true" id="Functions" type="P/T net">
+    <place displayName="true" id="Command" initialMarking="0" invariant="&lt; inf" name="Command" nameOffsetX="0" nameOffsetY="0" positionX="97" positionY="157"/>
+    <place displayName="true" id="Analysis_Crops" initialMarking="0" invariant="&lt; inf" name="Analysis_Crops" nameOffsetX="0" nameOffsetY="0" positionX="382" positionY="97"/>
+    <place displayName="true" id="Analysis_Soil" initialMarking="0" invariant="&lt; inf" name="Analysis_Soil" nameOffsetX="3" nameOffsetY="6" positionX="382" positionY="277"/>
+    <place displayName="true" id="Planting_Seeds" initialMarking="0" invariant="&lt; inf" name="Planting_Seeds" nameOffsetX="-6" nameOffsetY="4" positionX="382" positionY="217"/>
+    <place displayName="true" id="Perform_PestControl" initialMarking="0" invariant="&lt; inf" name="Perform_PestControl" nameOffsetX="0" nameOffsetY="-2" positionX="382" positionY="157"/>
+    <place displayName="true" id="Irrigation" initialMarking="0" invariant="&lt; inf" name="Irrigation" nameOffsetX="0" nameOffsetY="0" positionX="382" positionY="37"/>
+    <place displayName="true" id="checkReadyState_CP" initialMarking="0" invariant="&lt; inf" name="checkReadyState_CP" nameOffsetX="0" nameOffsetY="0" positionX="293" positionY="559"/>
+    <place displayName="true" id="ReportedRS_AV" initialMarking="0" invariant="&lt; inf" name="ReportedRS_AV" nameOffsetX="0" nameOffsetY="0" positionX="335" positionY="470"/>
+    <place displayName="true" id="ReportedRS_Drones" initialMarking="0" invariant="&lt; inf" name="ReportedRS_Drones" nameOffsetX="0" nameOffsetY="0" positionX="335" positionY="665"/>
+    <place displayName="true" id="AVReady2Function" initialMarking="0" invariant="&lt; inf" name="AVReady2Function" nameOffsetX="68" nameOffsetY="-7" positionX="533" positionY="526"/>
+    <place displayName="true" id="DroneReady2Function" initialMarking="0" invariant="&lt; inf" name="DroneReady2Function" nameOffsetX="72" nameOffsetY="-5" positionX="533" positionY="616"/>
+    <place displayName="true" id="Idle_AV" initialMarking="0" invariant="&lt; inf" name="Idle_AV" nameOffsetX="0" nameOffsetY="0" positionX="690" positionY="430"/>
+    <place displayName="true" id="Idle_Drones" initialMarking="0" invariant="&lt; inf" name="Idle_Drones" nameOffsetX="0" nameOffsetY="0" positionX="697" positionY="715"/>
+    <place displayName="true" id="Command_Chosen" initialMarking="0" invariant="&lt; inf" name="Command_Chosen" nameOffsetX="67" nameOffsetY="-9" positionX="536" positionY="156"/>
+    <transition angle="0" displayName="true" id="Command_Irrigation" infiniteServer="false" name="Command_Irrigation" nameOffsetX="0" nameOffsetY="0" player="0" positionX="172" positionY="37" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Command_Analysis_Crops" infiniteServer="false" name="Command_Analysis_Crops" nameOffsetX="0" nameOffsetY="0" player="0" positionX="172" positionY="97" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Command_Perform_PestControl" infiniteServer="false" name="Command_Perform_PestControl" nameOffsetX="173" nameOffsetY="36" player="0" positionX="172" positionY="157" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Command_Planting_Seeds" infiniteServer="false" name="Command_Planting_Seeds" nameOffsetX="165" nameOffsetY="36" player="0" positionX="172" positionY="217" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="Command_Analysis_Soil" infiniteServer="false" name="Command_Analysis_Soil" nameOffsetX="0" nameOffsetY="0" player="0" positionX="173" positionY="277" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="informAVRS2CP" infiniteServer="false" name="informAVRS2CP" nameOffsetX="95" nameOffsetY="50" player="0" positionX="401" positionY="530" priority="0" urgent="true"/>
+    <transition angle="0" displayName="true" id="informDronesRS2CP" infiniteServer="false" name="informDronesRS2CP" nameOffsetX="101" nameOffsetY="47" player="0" positionX="401" positionY="620" priority="0" urgent="true"/>
+    <transition angle="0" displayName="true" id="checkReadyState" infiniteServer="false" name="checkReadyState" nameOffsetX="0" nameOffsetY="0" player="0" positionX="138" positionY="557" priority="0" urgent="true"/>
+    <transition angle="0" displayName="true" id="reportASNotReady" infiniteServer="false" name="reportASNotReady" nameOffsetX="-6" nameOffsetY="-1" player="0" positionX="481" positionY="429" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="reportDroneNotReady" infiniteServer="false" name="reportDroneNotReady" nameOffsetX="9" nameOffsetY="51" player="0" positionX="481" positionY="722" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestPestControlData" infiniteServer="false" name="requestPestControlData" nameOffsetX="0" nameOffsetY="0" player="0" positionX="809" positionY="164" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestIrrigationData" infiniteServer="false" name="requestIrrigationData" nameOffsetX="66" nameOffsetY="-10" player="0" positionX="809" positionY="37" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestAnalysisCropData" infiniteServer="false" name="requestAnalysisCropData" nameOffsetX="0" nameOffsetY="0" player="0" positionX="809" positionY="97" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestPlantingSeedsData" infiniteServer="false" name="requestPlantingSeedsData" nameOffsetX="0" nameOffsetY="0" player="0" positionX="809" positionY="218" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestAnalysisSoilData" infiniteServer="false" name="requestAnalysisSoilData" nameOffsetX="0" nameOffsetY="0" player="0" positionX="809" positionY="277" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Command" target="Command_Irrigation" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="119" yCoord="159"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="53"/>
+    </arc>
+    <arc id="A1" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Command" target="Command_Analysis_Crops" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="124" yCoord="163"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="113"/>
+    </arc>
+    <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Command" target="Command_Perform_PestControl" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="128" yCoord="173"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="173"/>
+    </arc>
+    <arc id="A3" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Command" target="Command_Planting_Seeds" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="124" yCoord="181"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="233"/>
+    </arc>
+    <arc id="A4" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Command" target="Command_Analysis_Soil" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="119" yCoord="185"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="293"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="checkReadyState" target="checkReadyState_CP" type="normal" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="156" yCoord="573"/>
+      <arcpath arcPointType="false" id="1" xCoord="293" yCoord="573"/>
+    </arc>
+    <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReportedRS_AV" target="informAVRS2CP" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="360" yCoord="495"/>
+      <arcpath arcPointType="false" id="1" xCoord="411" yCoord="543"/>
+    </arc>
+    <arc id="A9" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReportedRS_Drones" target="informDronesRS2CP" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="363" yCoord="671"/>
+      <arcpath arcPointType="false" id="1" xCoord="410" yCoord="644"/>
+    </arc>
+    <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="checkReadyState_CP" target="informAVRS2CP" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="321" yCoord="570"/>
+      <arcpath arcPointType="false" id="1" xCoord="410" yCoord="548"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="checkReadyState_CP" target="informDronesRS2CP" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="320" yCoord="580"/>
+      <arcpath arcPointType="false" id="1" xCoord="411" yCoord="633"/>
+    </arc>
+    <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="informAVRS2CP" target="AVReady2Function" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="420" yCoord="545"/>
+      <arcpath arcPointType="false" id="1" xCoord="533" yCoord="541"/>
+    </arc>
+    <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="informDronesRS2CP" target="DroneReady2Function" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="420" yCoord="635"/>
+      <arcpath arcPointType="false" id="1" xCoord="533" yCoord="631"/>
+    </arc>
+    <arc id="A14" inscription="1" nameOffsetX="0" nameOffsetY="0" source="reportASNotReady" target="Idle_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="500" yCoord="444"/>
+      <arcpath arcPointType="false" id="1" xCoord="690" yCoord="444"/>
+    </arc>
+    <arc id="A16" inscription="1" nameOffsetX="0" nameOffsetY="0" source="reportDroneNotReady" target="Idle_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="500" yCoord="738"/>
+      <arcpath arcPointType="false" id="1" xCoord="698" yCoord="730"/>
+    </arc>
+    <arc id="I17" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="AVReady2Function" target="reportASNotReady" type="tapnInhibitor" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="539" yCoord="528"/>
+      <arcpath arcPointType="false" id="1" xCoord="496" yCoord="459"/>
+    </arc>
+    <arc id="I19" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DroneReady2Function" target="reportDroneNotReady" type="tapnInhibitor" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="540" yCoord="644"/>
+      <arcpath arcPointType="false" id="1" xCoord="496" yCoord="723"/>
+    </arc>
+    <arc id="I18" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReportedRS_Drones" target="reportDroneNotReady" type="tapnInhibitor" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="363" yCoord="686"/>
+      <arcpath arcPointType="false" id="1" xCoord="490" yCoord="748"/>
+    </arc>
+    <arc id="I16" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ReportedRS_AV" target="reportASNotReady" type="tapnInhibitor" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="364" yCoord="481"/>
+      <arcpath arcPointType="false" id="1" xCoord="490" yCoord="455"/>
+    </arc>
+    <arc id="A21" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Command_Irrigation" target="Irrigation" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="53"/>
+      <arcpath arcPointType="false" id="1" xCoord="383" yCoord="53"/>
+    </arc>
+    <arc id="A22" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Command_Analysis_Crops" target="Analysis_Crops" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="113"/>
+      <arcpath arcPointType="false" id="1" xCoord="383" yCoord="113"/>
+    </arc>
+    <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Command_Perform_PestControl" target="Perform_PestControl" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="173"/>
+      <arcpath arcPointType="false" id="1" xCoord="383" yCoord="173"/>
+    </arc>
+    <arc id="A24" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Command_Planting_Seeds" target="Planting_Seeds" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="233"/>
+      <arcpath arcPointType="false" id="1" xCoord="383" yCoord="233"/>
+    </arc>
+    <arc id="A25" inscription="1" nameOffsetX="0" nameOffsetY="0" source="Command_Analysis_Soil" target="Analysis_Soil" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="191" yCoord="293"/>
+      <arcpath arcPointType="false" id="1" xCoord="383" yCoord="293"/>
+    </arc>
+  </net>
+  <net active="true" id="Server" type="P/T net">
+    <place displayName="true" id="Started_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Started_ControlPanel" nameOffsetX="57" nameOffsetY="-11" positionX="120" positionY="75"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4CP" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4CP" nameOffsetX="69" nameOffsetY="-8" positionX="540" positionY="75"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4CP" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4CP" nameOffsetX="74" nameOffsetY="-9" positionX="540" positionY="180"/>
+    <place displayName="true" id="Login_ControlPanel" initialMarking="0" invariant="&lt; inf" name="Login_ControlPanel" nameOffsetX="0" nameOffsetY="0" positionX="135" positionY="315"/>
+    <place displayName="true" id="LoginSuccessful_Server" initialMarking="0" invariant="&lt; inf" name="LoginSuccessful_Server" nameOffsetX="0" nameOffsetY="0" positionX="540" positionY="315"/>
+    <place displayName="true" id="LoginTimeOut_Server" initialMarking="0" invariant="&lt; inf" name="LoginTimeOut_Server" nameOffsetX="0" nameOffsetY="0" positionX="540" positionY="510"/>
+    <place displayName="true" id="LoginFailed_Server" initialMarking="0" invariant="&lt; inf" name="LoginFailed_Server" nameOffsetX="0" nameOffsetY="0" positionX="540" positionY="406"/>
+    <place displayName="true" id="Started_Drones" initialMarking="0" invariant="&lt; inf" name="Started_Drones" nameOffsetX="0" nameOffsetY="0" positionX="682" positionY="82"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4D" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4D" nameOffsetX="183" nameOffsetY="-6" positionX="955" positionY="75"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4D" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4D" nameOffsetX="154" nameOffsetY="50" positionX="956" positionY="159"/>
+    <place displayName="true" id="Initialization_Drones" initialMarking="0" invariant="&lt; inf" name="Initialization_Drones" nameOffsetX="0" nameOffsetY="0" positionX="705" positionY="530"/>
+    <place displayName="true" id="Initialization_CP" initialMarking="0" invariant="&lt; inf" name="Initialization_CP" nameOffsetX="0" nameOffsetY="0" positionX="540" positionY="779"/>
+    <place displayName="true" id="Initialization_AV" initialMarking="0" invariant="&lt; inf" name="Initialization_AV" nameOffsetX="0" nameOffsetY="0" positionX="688" positionY="684"/>
+    <place displayName="true" id="RequestedGISInfos4D" initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4D" nameOffsetX="71" nameOffsetY="1" positionX="1345" positionY="83"/>
+    <place displayName="true" id="RequestedGISInfos4AV" initialMarking="0" invariant="&lt; inf" name="RequestedGISInfos4AV" nameOffsetX="81" nameOffsetY="-9" positionX="1345" positionY="165"/>
+    <place displayName="true" id="SentGISInfos4D" initialMarking="0" invariant="&lt; inf" name="SentGISInfos4D" nameOffsetX="0" nameOffsetY="0" positionX="1588" positionY="83"/>
+    <place displayName="true" id="SentGISInfos4AV" initialMarking="0" invariant="&lt; inf" name="SentGISInfos4AV" nameOffsetX="0" nameOffsetY="0" positionX="1588" positionY="165"/>
+    <place displayName="true" id="InitComplete_AV" initialMarking="0" invariant="&lt; inf" name="InitComplete_AV" nameOffsetX="60" nameOffsetY="-10" positionX="878" positionY="688"/>
+    <place displayName="true" id="Started_AV" initialMarking="0" invariant="&lt; inf" name="Started_AV" nameOffsetX="0" nameOffsetY="0" positionX="690" positionY="307"/>
+    <place displayName="true" id="ConnectivityConfirmed_Server4AV" initialMarking="0" invariant="&lt; inf" name="ConnectivityConfirmed_Server4AV" nameOffsetX="0" nameOffsetY="0" positionX="953" positionY="263"/>
+    <place displayName="true" id="ConnectivityTimeOut_Server4AV" initialMarking="0" invariant="&lt; inf" name="ConnectivityTimeOut_Server4AV" nameOffsetX="0" nameOffsetY="0" positionX="953" positionY="359"/>
+    <place displayName="true" id="InitComplete4AV" initialMarking="0" invariant="&lt; inf" name="InitComplete4AV" nameOffsetX="0" nameOffsetY="0" positionX="1041" positionY="694"/>
+    <place displayName="true" id="InitComplete4Drones" initialMarking="0" invariant="&lt; inf" name="InitComplete4Drones" nameOffsetX="0" nameOffsetY="0" positionX="1034" positionY="511"/>
+    <place displayName="true" id="InitComplete_Drones" initialMarking="0" invariant="&lt; inf" name="InitComplete_Drones" nameOffsetX="74" nameOffsetY="-16" positionX="878" positionY="513"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_Pass_ControlPanel" infiniteServer="false" name="CheckConnectivity_Pass_ControlPanel" nameOffsetX="103" nameOffsetY="-9" player="0" positionX="330" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_TimeOut_ControlPanel" infiniteServer="false" name="CheckConnectivity_TimeOut_ControlPanel" nameOffsetX="168" nameOffsetY="-30" player="0" positionX="330" positionY="180" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckLoginInfos_Pass" infiniteServer="false" name="CheckLoginInfos_Pass" nameOffsetX="71" nameOffsetY="50" player="0" positionX="330" positionY="315" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckLoginInfos_Failed" infiniteServer="false" name="CheckLoginInfos_Failed" nameOffsetX="79" nameOffsetY="49" player="0" positionX="330" positionY="405" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckLoginInfos_TimeOut" infiniteServer="false" name="CheckLoginInfos_TimeOut" nameOffsetX="64" nameOffsetY="50" player="0" positionX="330" positionY="510" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_Pass_Drones" infiniteServer="false" name="CheckConnectivity_Pass_Drones" nameOffsetX="85" nameOffsetY="-13" player="0" positionX="789" positionY="75" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_TimeOut_Drones" infiniteServer="false" name="CheckConnectivity_TimeOut_Drones" nameOffsetX="92" nameOffsetY="55" player="0" positionX="787" positionY="157" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestGISInfos4D" infiniteServer="false" name="requestGISInfos4D" nameOffsetX="55" nameOffsetY="-6" player="0" positionX="1240" positionY="85" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="SystemCheckAndCalibration4D" infiniteServer="false" name="SystemCheckAndCalibration4D" nameOffsetX="0" nameOffsetY="0" player="0" positionX="788" positionY="456" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="requestGISInfo4AV" infiniteServer="false" name="requestGISInfo4AV" nameOffsetX="58" nameOffsetY="-6" player="0" positionX="1240" positionY="165" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T14" infiniteServer="false" name="T14" nameOffsetX="0" nameOffsetY="0" player="0" positionX="1468" positionY="83" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T15" infiniteServer="false" name="T15" nameOffsetX="0" nameOffsetY="0" player="0" positionX="1466" positionY="155" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="GPSInitializing4D" infiniteServer="false" name="GPSInitializing4D" nameOffsetX="0" nameOffsetY="0" player="0" positionX="788" positionY="505" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="BatterCheck4D" infiniteServer="false" name="BatterCheck4D" nameOffsetX="7" nameOffsetY="42" player="0" positionX="788" positionY="550" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="SystemCheckAndCalibration_AV" infiniteServer="false" name="SystemCheckAndCalibration_AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="788" positionY="634" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="GPSInitializing4AV" infiniteServer="false" name="GPSInitializing4AV" nameOffsetX="5" nameOffsetY="1" player="0" positionX="788" positionY="680" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="BatterCheck4AV" infiniteServer="false" name="BatterCheck4AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="788" positionY="726" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_Pass_AV" infiniteServer="false" name="CheckConnectivity_Pass_AV" nameOffsetX="0" nameOffsetY="0" player="0" positionX="787" positionY="262" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="CheckConnectivity_TimeOut_AV" infiniteServer="false" name="CheckConnectivity_TimeOut_AV" nameOffsetX="24" nameOffsetY="53" player="0" positionX="787" positionY="360" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="sendInitCompMessage4D_Server" infiniteServer="false" name="sendInitCompMessage4D_Server" nameOffsetX="0" nameOffsetY="0" player="0" positionX="951" positionY="511" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="sendInitCompMessage4AV_Server" infiniteServer="false" name="sendInitCompMessage4AV_Server" nameOffsetX="0" nameOffsetY="0" player="0" positionX="951" positionY="686" priority="0" urgent="false"/>
+    <arc id="A2" inscription="[Deadline,inf)" nameOffsetX="0" nameOffsetY="0" source="Started_ControlPanel" target="CheckConnectivity_TimeOut_ControlPanel" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="148" yCoord="96"/>
+      <arcpath arcPointType="false" id="1" xCoord="340" yCoord="190"/>
+    </arc>
+    <arc id="A4" inscription="[0,Deadline)" nameOffsetX="0" nameOffsetY="0" source="Started_ControlPanel" target="CheckConnectivity_Pass_ControlPanel" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="150" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="339" yCoord="90"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_Pass_ControlPanel" target="ConnectivityConfirmed_Server4CP" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="349" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="90"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_TimeOut_ControlPanel" target="ConnectivityTimeOut_Server4CP" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="349" yCoord="195"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="195"/>
+    </arc>
+    <arc id="A6" inscription="[0,Deadline)" nameOffsetX="73" nameOffsetY="-9" source="Login_ControlPanel" target="CheckLoginInfos_Pass" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="164" yCoord="329"/>
+      <arcpath arcPointType="false" id="1" xCoord="340" yCoord="325"/>
+    </arc>
+    <arc id="A8" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckLoginInfos_Pass" target="LoginSuccessful_Server" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="350" yCoord="325"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="329"/>
+    </arc>
+    <arc id="A9" inscription="[Deadline,inf)" nameOffsetX="26" nameOffsetY="38" source="Login_ControlPanel" target="CheckLoginInfos_TimeOut" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="160" yCoord="340"/>
+      <arcpath arcPointType="false" id="1" xCoord="339" yCoord="530"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckLoginInfos_TimeOut" target="LoginTimeOut_Server" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="349" yCoord="525"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="525"/>
+    </arc>
+    <arc id="A7" inscription="[0,Deadline]" nameOffsetX="79" nameOffsetY="5" source="Login_ControlPanel" target="CheckLoginInfos_Failed" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="163" yCoord="336"/>
+      <arcpath arcPointType="false" id="1" xCoord="339" yCoord="423"/>
+    </arc>
+    <arc id="A11" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckLoginInfos_Failed" target="LoginFailed_Server" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="349" yCoord="420"/>
+      <arcpath arcPointType="false" id="1" xCoord="540" yCoord="420"/>
+    </arc>
+    <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Started_Drones" target="CheckConnectivity_Pass_Drones" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="711" yCoord="95"/>
+      <arcpath arcPointType="false" id="1" xCoord="799" yCoord="85"/>
+    </arc>
+    <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_Pass_Drones" target="ConnectivityConfirmed_Server4D" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="808" yCoord="90"/>
+      <arcpath arcPointType="false" id="1" xCoord="955" yCoord="90"/>
+    </arc>
+    <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Started_Drones" target="CheckConnectivity_TimeOut_Drones" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="709" yCoord="105"/>
+      <arcpath arcPointType="false" id="1" xCoord="798" yCoord="168"/>
+    </arc>
+    <arc id="A15" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_TimeOut_Drones" target="ConnectivityTimeOut_Server4D" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="173"/>
+      <arcpath arcPointType="false" id="1" xCoord="956" yCoord="173"/>
+    </arc>
+    <arc id="A17" inscription="1" nameOffsetX="0" nameOffsetY="0" source="requestGISInfos4D" target="RequestedGISInfos4D" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1259" yCoord="100"/>
+      <arcpath arcPointType="false" id="1" xCoord="1345" yCoord="98"/>
+    </arc>
+    <arc id="A19" inscription="1" nameOffsetX="0" nameOffsetY="0" source="requestGISInfo4AV" target="RequestedGISInfos4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1259" yCoord="180"/>
+      <arcpath arcPointType="false" id="1" xCoord="1345" yCoord="180"/>
+    </arc>
+    <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="RequestedGISInfos4D" target="T14" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1374" yCoord="96"/>
+      <arcpath arcPointType="false" id="1" xCoord="1478" yCoord="93"/>
+    </arc>
+    <arc id="A25" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="RequestedGISInfos4AV" target="T15" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1374" yCoord="179"/>
+      <arcpath arcPointType="false" id="1" xCoord="1475" yCoord="175"/>
+    </arc>
+    <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T14" target="SentGISInfos4D" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1486" yCoord="98"/>
+      <arcpath arcPointType="false" id="1" xCoord="1588" yCoord="98"/>
+    </arc>
+    <arc id="A27" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T15" target="SentGISInfos4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1485" yCoord="170"/>
+      <arcpath arcPointType="false" id="1" xCoord="1588" yCoord="178"/>
+    </arc>
+    <arc id="A28" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_Drones" target="SystemCheckAndCalibration4D" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="730" yCoord="534"/>
+      <arcpath arcPointType="false" id="1" xCoord="796" yCoord="476"/>
+    </arc>
+    <arc id="A29" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_Drones" target="GPSInitializing4D" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="734" yCoord="539"/>
+      <arcpath arcPointType="false" id="1" xCoord="798" yCoord="515"/>
+    </arc>
+    <arc id="A30" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_Drones" target="BatterCheck4D" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="734" yCoord="549"/>
+      <arcpath arcPointType="false" id="1" xCoord="796" yCoord="570"/>
+    </arc>
+    <arc id="A31" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_AV" target="SystemCheckAndCalibration_AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="715" yCoord="690"/>
+      <arcpath arcPointType="false" id="1" xCoord="798" yCoord="644"/>
+    </arc>
+    <arc id="A32" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_AV" target="GPSInitializing4AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="716" yCoord="696"/>
+      <arcpath arcPointType="false" id="1" xCoord="798" yCoord="690"/>
+    </arc>
+    <arc id="A33" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Initialization_AV" target="BatterCheck4AV" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="715" yCoord="705"/>
+      <arcpath arcPointType="false" id="1" xCoord="796" yCoord="746"/>
+    </arc>
+    <arc id="A37" inscription="1" nameOffsetX="0" nameOffsetY="0" source="SystemCheckAndCalibration_AV" target="InitComplete_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="649"/>
+      <arcpath arcPointType="false" id="1" xCoord="879" yCoord="694"/>
+    </arc>
+    <arc id="A38" inscription="1" nameOffsetX="0" nameOffsetY="0" source="GPSInitializing4AV" target="InitComplete_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="695"/>
+      <arcpath arcPointType="false" id="1" xCoord="878" yCoord="700"/>
+    </arc>
+    <arc id="A39" inscription="1" nameOffsetX="0" nameOffsetY="0" source="BatterCheck4AV" target="InitComplete_AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="741"/>
+      <arcpath arcPointType="false" id="1" xCoord="879" yCoord="708"/>
+    </arc>
+    <arc id="A40" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Started_AV" target="CheckConnectivity_Pass_AV" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="718" yCoord="315"/>
+      <arcpath arcPointType="false" id="1" xCoord="796" yCoord="279"/>
+    </arc>
+    <arc id="A41" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="Started_AV" target="CheckConnectivity_TimeOut_AV" type="timed" weight="2">
+      <arcpath arcPointType="false" id="0" xCoord="718" yCoord="330"/>
+      <arcpath arcPointType="false" id="1" xCoord="796" yCoord="380"/>
+    </arc>
+    <arc id="A42" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_Pass_AV" target="ConnectivityConfirmed_Server4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="278"/>
+      <arcpath arcPointType="false" id="1" xCoord="953" yCoord="278"/>
+    </arc>
+    <arc id="A43" inscription="1" nameOffsetX="0" nameOffsetY="0" source="CheckConnectivity_TimeOut_AV" target="ConnectivityTimeOut_Server4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="375"/>
+      <arcpath arcPointType="false" id="1" xCoord="953" yCoord="374"/>
+    </arc>
+    <arc id="A45" inscription="1" nameOffsetX="0" nameOffsetY="0" source="sendInitCompMessage4D_Server" target="InitComplete4Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="970" yCoord="526"/>
+      <arcpath arcPointType="false" id="1" xCoord="1034" yCoord="526"/>
+    </arc>
+    <arc id="A46" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="InitComplete_AV" target="sendInitCompMessage4AV_Server" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="906" yCoord="703"/>
+      <arcpath arcPointType="false" id="1" xCoord="960" yCoord="706"/>
+    </arc>
+    <arc id="A47" inscription="1" nameOffsetX="0" nameOffsetY="0" source="sendInitCompMessage4AV_Server" target="InitComplete4AV" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="970" yCoord="701"/>
+      <arcpath arcPointType="false" id="1" xCoord="1041" yCoord="706"/>
+    </arc>
+    <arc id="A44" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="InitComplete_Drones" target="sendInitCompMessage4D_Server" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="906" yCoord="528"/>
+      <arcpath arcPointType="false" id="1" xCoord="960" yCoord="531"/>
+    </arc>
+    <arc id="A36" inscription="1" nameOffsetX="0" nameOffsetY="0" source="BatterCheck4D" target="InitComplete_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="565"/>
+      <arcpath arcPointType="false" id="1" xCoord="878" yCoord="533"/>
+    </arc>
+    <arc id="A35" inscription="1" nameOffsetX="0" nameOffsetY="0" source="GPSInitializing4D" target="InitComplete_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="520"/>
+      <arcpath arcPointType="false" id="1" xCoord="878" yCoord="525"/>
+    </arc>
+    <arc id="A34" inscription="1" nameOffsetX="0" nameOffsetY="0" source="SystemCheckAndCalibration4D" target="InitComplete_Drones" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="806" yCoord="471"/>
+      <arcpath arcPointType="false" id="1" xCoord="879" yCoord="519"/>
+    </arc>
+  </net>
+  <k-bound bound="3"/>
+  <feature isGame="true" isTimed="true"/>
+</pnml>
