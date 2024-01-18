@@ -1,0 +1,5 @@
+Model;Query;Result;Verification Time;Memory Usage;Discovered States;Explored States;Stored States;Query Property;Extra Tokens;Verification Method;Symmetry;Search Order;Approximation Method;Approximation Constant
+Final Tapaal Model for the Lab_to present.tapn;Deadlock?;Satisfied;0.103 s;N/A;13;5;12;AG !(deadlock);4;E: TAPAAL Discrete Engine Engine w. PTries;No;Breadth First Search;None;2
+Final Tapaal Model for the Lab_to present.tapn;Can more than one drone work at the same time?;Satisfied;0.113 s;N/A;13;5;12;AG !(Farmer_ControlPanel.RemovalInProcess >= 2);4;E: TAPAAL Discrete Engine Engine w. PTries;Yes;Breadth First Search;None;2
+Final Tapaal Model for the Lab_to present.tapn;Can login be failed and passed at the same time?;Satisfied;0.106 s;N/A;13;5;12;AG !(LoginFailed_CP = 1 and LoginPassed_CP = 1);4;E: TAPAAL Discrete Engine Engine w. PTries;Yes;Breadth First Search;None;2
+Final Tapaal Model for the Lab_to present.tapn;Can the farmer monitor the plant identification map?;Satisfied;0.104 s;N/A;13;5;12;AG !(Farmer_ControlPanel.MonitorPIMap = 1);4;E: TAPAAL Discrete Engine Engine w. PTries;Yes;Breadth First Search;None;2
